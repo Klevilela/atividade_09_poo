@@ -3,11 +3,6 @@ interface FiguraGeometrica {
     calcularPerimetro(): number;
 }
 
-interface IComparavel {
-    comparar(Quadrado: FiguraGeometrica): number;
-}
-
-
 class Quadrado implements FiguraGeometrica {
     constructor(private lado: number) {}
 
