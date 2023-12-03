@@ -1,4 +1,4 @@
-import { Quadrado, Trapezio, Triangulo, Retangulo,FormaGeometrica} from "./questao8";
+import { Quadrado, Trapezio, Triangulo, Retangulo} from "./questao8";
 
 class testarFormas{
     quadrado: Quadrado = new Quadrado(2);
