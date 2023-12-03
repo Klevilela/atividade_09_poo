@@ -63,16 +63,16 @@ class Triangulo extends FormaGeometrica implements IComparavel {
 
 class Trapezio extends FormaGeometrica implements IComparavel {
    
-    constructor(private baseMaior: number, 
-        private baseMenor: number, private altura: number, 
+    constructor(private bMaior: number, 
+        private bMenor: number, private alt: number, 
         private lado1: number, private lado2: number) {super(); }
 
         calcularArea(): number {
-            return ((this.baseMaior + this.baseMenor) * this.altura) / 2;
+            return ((this.bMaior + this.bMenor) * this.alt) / 2;
         }
     
         calcularPerimetro(): number {
-            return this.baseMaior + this.baseMenor + this.lado1 + this.lado2;
+            return this.bMaior + this.bMenor + this.lado1 + this.lado2;
         }
 
     comparar(outraFormaGeo: FormaGeometrica): number {
@@ -117,8 +117,9 @@ class Retangulo extends FormaGeometrica implements IComparavel {
         }
     }
 }
+export {Quadrado, Trapezio, Triangulo, Retangulo, FormaGeometrica}
 
-// Implementação
+
 const quadrado = new Quadrado(2);
 const triangulo = new Triangulo([3, 4, 5]);
 const trapezio =  new Trapezio(5, 3, 4, 2, 3);
@@ -132,4 +133,5 @@ const comparacao4 = triangulo.comparar(trapezio);
 console.log("Quadrado e Triângulo: " + comparacao1);
 console.log("Trapézio e Quadrado: " + comparacao2);
 console.log("Quadrado e Retângulo: " + comparacao3);
-console.log("Triângulo e Trapézios: " + comparacao4);
+console.log("Triângulo e Trapézio: " + comparacao4);
+

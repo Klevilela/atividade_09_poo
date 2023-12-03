@@ -27,18 +27,18 @@ class Triangulo implements FiguraGeometrica {
 }
 
 class Trapezio implements FiguraGeometrica {
-    constructor(private baseMaior: number, private baseMenor: number, private altura: number, private lado1: number, private lado2: number) {}
+    constructor(private bMaior: number, private bMenor: number, private alt: number, private lado1: number, private lado2: number) {}
 
     calcularArea(): number {
-        return ((this.baseMaior + this.baseMenor) * this.altura) / 2;
+        return ((this.bMaior + this.bMenor) * this.alt) / 2;
     }
 
     calcularPerimetro(): number {
-        return this.baseMaior + this.baseMenor + this.lado1 + this.lado2;
+        return this.bMaior + this.bMenor + this.lado1 + this.lado2;
     }
 }
 
-// Teste
+
 let q: FiguraGeometrica = new Quadrado(2);
 console.log("---Quadrado---");
 console.log("Área:", q.calcularArea());
