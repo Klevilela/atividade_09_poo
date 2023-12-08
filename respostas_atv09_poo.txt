@@ -1,6 +1,0 @@
-1- Não. As classes abstratas são como um modelo de como implementar as classes subclasses.
-Uma vez estando lá apenas como uma referência ou máscara, elas não são instanciadas.
-2- A obrigação de implementar o conteúdo da classe abstrata, isto é, seus métodos e atributos
-juntamente com as instruções específicas da subclasse. Nesse contexto, para que compile sem erros,
-deve implementar o método imprimaAlgo() na classe concreta.
-3- Continua sendo uma classe abstrata

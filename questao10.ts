@@ -11,26 +11,26 @@ export class Conta{
         this._saldo = saldo
     }
 
-    get getnome(){
+    get nome(){
         return this._nome
     }
 
-    set setNome(novo_nome:string){
+    set nome(novo_nome:string){
         this._nome = novo_nome
     }
 
-    get getSaldo(){
+    get saldo(){
         return this._saldo
     }
 
-    set setSaldo(novo_saldo:number){
+    set saldo(novo_saldo:number){
         this._saldo = novo_saldo
     }
 }
 
 export class contaCorrente extends Conta implements Tributavel{
     calculaTributos() {
-        return  0.1 * this.getSaldo       
+        return  0.1 * this.saldo       
     }
 }
 

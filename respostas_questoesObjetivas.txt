@@ -1,0 +1,32 @@
+1. Podemos instanciar classes abstratas? Justifique.
+  
+  R = Não. As classes abstratas são como um modelo de como implementar as classes subclasses.
+Uma vez estando lá apenas como uma referência ou máscara, elas não são instanciadas.
+
+2 - Explique o que é necessário para que a compilação da ClasseConcreta ocorra
+sem erros.
+
+  R = A obrigação de implementar o conteúdo da classe abstrata, isto é, seus métodos e atributos
+juntamente com as instruções específicas da subclasse. Nesse contexto, para que compile sem erros,
+deve implementar o método imprimaAlgo() na classe concreta.
+
+3 - Se uma classe que herda de uma abstrata e não implementa os seus métodos, o
+que ocorre?
+ 
+  R = Ao herdar de uma classe abstrata no TypeScript, é necessário implementar os métodos 
+  abstratos definidos pela classe pai. Caso contrário, a compilação no TypeScript resultará 
+  em um erro que aponta que a classe filha não está aderindo às exigências estabelecidas pela 
+  classe abstrata.
+  
+5 - Não podemos aplicar o operador new em FiguraGeometrica, mas porque então
+podemos realizar o seguinte código de instanciação:
+
+abstract class FiguraGeometrica {
+//...
+}
+let figuras: FiguraGeometrica[] = new Array();
+
+  R = Isso se dá porque mesmo que não seja possível criar uma instância direta da classe abstrata 
+  FiguraGeometrica usando o operador new, podemos criar um array próprio para armazenar objetos 
+  do tipo FiguraGeometrica[]. Isso permite que o array contenha instâncias de classes que 
+  herdam de FiguraGeometrica ou que implementem a interface da classe abstrata.
