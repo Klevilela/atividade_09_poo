@@ -24,14 +24,23 @@ const SAIR: string = "0";
 
 export class App {
   private _redeSocial: RedeSocial;
+  private _redeSocial2: RedeSocial;
 
-  constructor(redeSocial: RedeSocial) {
+  /* constructor(redeSocial: RedeSocial) {
     this._redeSocial = redeSocial;
+  } */
+  constructor() {
+    this._redeSocial = new RedeSocial(new RepositorioDePerfis(), new RepositorioDePostagens())
+    //this._redeSocial2 = new RedeSocial(new RepositorioDePostagens());
   }
 
-  get redeSocial() {
+  public get redeSocial() {
     return this._redeSocial;
   }
+ 
+  /* get redeSocialPostagem(){
+    return this._redeSocial2
+  } */
 
   carregarPerfildeArquivo() {
     const arquivo = fs.readFileSync("Perfis.txt", "utf-8");
@@ -86,25 +95,31 @@ export class App {
     return postagens_carregadas;
   }
 
-  gravarPerfis() {
+  /* gravarPerfis() {
     console.log("CADASTRANDO PERFIS");
     let linha_perfil: string = ``;
     let linhas_perfis: string = ``;
-    let perfis_cadastrados = this.redeSocial.repDePerfis.repDePerfis;
+    //let perfis_cadastrados = this.redeSocial.repDePerfis;
+    let perfis_cadastrados = this.redeSocialPerfil.repDePerfis;
+
+    for (let i = 0; i < this.redeSocialPerfil.length; i++) {
+      const element = array[index];
+      
+    }
 
     for (let perfil of perfis_cadastrados) {
       linha_perfil += `${perfil.id};${perfil.nome};${perfil.email}\n`;
       linhas_perfis += linha_perfil;
     }
     //linhas_perfis = linhas_perfis.slice(0, linhas_perfis.length)
-    fs.writeFileSync("Perfis.txt", linhas_perfis, { flag: "a" });
+    fs.writeFileSync("Perfis.txt", linhas_perfis.trim(), { flag: "a" });
   }
 
   gravarPostagens() {
     console.log("POSTAGENS CARREGADAS");
     let linha_postagem: string = ``;
     let linhas_postagens: string = ``;
-    let postagens_carregadas = this.redeSocial.repDePostagens.postagens;
+    let postagens_carregadas = this.redeSocialPostagem
 
     for (let post of postagens_carregadas) {
       linha_postagem += `${post.id};${post.texto};${post.curtidas};${post.descurtidas};${post.date};${post.perfil};\n`;
@@ -117,7 +132,7 @@ export class App {
     }
 
     fs.writeFileSync("Postagens.txt", linhas_postagens, { flag: "a" });
-  }
+  } */
 
   exibirMenu(): void {
     let menu = ``;
@@ -140,47 +155,56 @@ export class App {
     let opcao: string;
     //app.gravarPerfis()
     do {
-      let enter_to_continue: string = input("Aperter <enter> para continuar");
-      //console.log(this.carregarPerfildeArquivo())
-      this.exibirMenu();
       opcao = input("\nOPÇÃO: ");
+      try{
+        //console.log(this.carregarPerfildeArquivo())
+        //console.log(this.carregarPostagensdeArquivo())
+        this.exibirMenu();
+        let enter_to_continue: string = input("Aperter <enter> para continuar");
 
-      switch (opcao) {
-        case INCLUIR_PERFIL:
-          incluirPerfil();
-          break;
-        case CONSULTAR_PERFIL:
-          consultarPerfil();
-          break;
-        case INCLUIR_POSTAGEM:
-          incluirPostagem();
-          break;
-        case CONSULTAR_POSTAGEM:
-          consultarPostagens();
-          break;
-        case CURTIR:
-          curtirPostagem();
-          break;
-        case DESCURTIR:
-          descurtirPostagem();
-          break;
-        case DECREMENTAR_VIZUALIZACOES:
-          decrementarVisualizacoes();
-          break;
-        case EXIBIR_POSTAGENS_POR_PERFIL:
-          exibirPostagensPorPerfil();
-          break;
-        case EXIBIR_POSTAGENS_POR_HASHTAG:
-          exibirPostagensPorHashtag();
-          break;
+        switch (opcao) {
+          case INCLUIR_PERFIL:
+            incluirPerfil();
+            break;
+          case CONSULTAR_PERFIL:
+            consultarPerfil();
+            break;
+          case INCLUIR_POSTAGEM:
+            incluirPostagem();
+            break;
+          case CONSULTAR_POSTAGEM:
+            consultarPostagens();
+            break;
+          case CURTIR:
+            curtirPostagem();
+            break;
+          case DESCURTIR:
+            descurtirPostagem();
+            break;
+          case DECREMENTAR_VIZUALIZACOES:
+            decrementarVisualizacoes();
+            break;
+          case EXIBIR_POSTAGENS_POR_PERFIL:
+            exibirPostagensPorPerfil();
+            break;
+          case EXIBIR_POSTAGENS_POR_HASHTAG:
+            exibirPostagensPorHashtag();
+            break;
+        }
+        
       }
+      catch (e){console.log(e)}
+      
+      /* app.gravarPerfis();
+      app.gravarPostagens(); */
       //enter_to_continue = input('\n   Aperte <enter> para continuar')
       //opcao = input('\nOPÇÃO: ')
-    } while (opcao != SAIR);
-    app.gravarPerfis();
-    app.gravarPostagens();
+      //app.gravarPerfis()
+    }
+    while (opcao != SAIR);
+    //app.gravarPerfis();
+    //app.gravarPostagens();
     console.log("APLICACAO ENCERRADA");
-    //app.gravarPerfis()
   }
 }
 
@@ -194,13 +218,19 @@ function incluirPerfil(): void {
   let email: string = input("EMAIL: ");
   perfil = new Perfil(id, nome, email);
 
-  if (rede_social.repDePerfis instanceof RepositorioDePerfis) {
+  /* if (rede_social.repDePerfis instanceof RepositorioDePerfis) {
     //repositorio_perfis.incluir(perfil)
-    rede_social.incluirPerfil(perfil);
+    app.redeSocialPerfil.repDePerfis.incluir(perfil)
+  } */
+  if (app.redeSocial.repDePerfis instanceof RepositorioDePerfis) {
+    app.redeSocial.incluirPerfil(perfil)
+    //repositorio_perfis.incluir(perfil)
+    //app.redeSocial.repDePerfis.incluir(perfil)
   }
 
   console.log("PERFIL INCLUÍDO COM SUCESSO");
-  console.log(rede_social.repDePerfis);
+  console.log(app.redeSocial.repDePerfis)
+  //console.log(rede_social.repDePerfis);
 }
 
 function consultarPerfil() {
@@ -209,8 +239,8 @@ function consultarPerfil() {
   let nome: string = input("NOME: ");
   let email: string = input("EMAIL: ");
 
-  if (rede_social.repDePerfis instanceof RepositorioDePerfis) {
-    console.log(rede_social.consultarPerfil(id, nome, email));
+  if (app.redeSocial.repDePerfis instanceof RepositorioDePerfis) {
+    console.log(app.redeSocial.repDePerfis.consultar(id,nome, email)); 
   }
   //console.log(rede_social.consultarPerfil(id, nome, email))
   //perfil = new Perfil(id, nome, email)
@@ -225,8 +255,9 @@ function incluirPostagem() {
   const tipo_postagem = input("TIPO: ");
   let idPerfil: number;
   idPerfil = Number(input("INFORME A ID DO PERIL: "));
-  if (rede_social.consultarPerfil(idPerfil)) {
-    if (rede_social.repDePostagens instanceof RepositorioDePostagens) {
+  if (app.redeSocial.repDePerfis.consultar(idPerfil)) {
+    console.log(app.redeSocial.repDePerfis.consultar(idPerfil))
+    if (app.redeSocial.repDePostagens instanceof RepositorioDePostagens) {
       if (tipo_postagem == "1") {
         let id: number = Number(input("ID DA POSTAGEM: "));
         let texto: string = input("TEXTO DA POSTAGEM: ");
@@ -238,12 +269,14 @@ function incluirPostagem() {
         let data: Date = new Date(data_postagem);
         let perfil: Perfil;
 
-        let idPerfil: number = Number(input("Id do perfil: "));
-        perfil = rede_social.repDePerfis.consultar(idPerfil);
+        //let idPerfil: number = Number(input("Id do perfil: "));
+        perfil = app.redeSocial.repDePerfis.consultar(idPerfil);
 
-        perfil = rede_social.repDePerfis.consultar(idPerfil);
+        //perfil = app.redeSocialPerfil.repDePerfis.consultar(idPerfil);
 
         postagem = new Postagem(id, texto, curtidas, descurtidas, data, perfil);
+        app.redeSocial.incluirPostagem(postagem)
+        perfil.adicionarPostagem(postagem)
         console.log("POSTAGEM INCLUÍDA COM SUCESSO");
         if (postagem.ehPopular()) {
           console.log("\nA POSTAGEM É POPULAR");
@@ -251,6 +284,8 @@ function incluirPostagem() {
           console.log("\nA POSTAGEM NÃO É POPULAR");
         }
       }
+
+
       if (tipo_postagem == "2") {
         let id: number = Number(input("ID DA POSTAGEM: "));
         let texto: string = input("TEXTO DA POSTAGEM: ");
@@ -271,7 +306,7 @@ function incluirPostagem() {
           descurtidas,
           data,
           perfil,
-          visualizacoesRestantes
+          visualizacoesRestantes,
         );
 
         console.log("POSTAGEM INCLUÍDA COM SUCESSO");
@@ -280,17 +315,21 @@ function incluirPostagem() {
         if (postagem instanceof PostagemAvancada) {
           console.log("\nADICIONAR HASHTAG");
           let id: number = Number(input("ID DA POSTAGEM: "));
-          if (rede_social.repDePostagens.consultar(id)) {
+          if (app.redeSocial.repDePostagens.consultar(id)) {
             const hashtag: string = input("HASHTAG: ");
             postagem.adicionarHashtag(hashtag);
             console.log("HASHTAG ADICIONADA");
-            console.log(rede_social.repDePostagens.postagens);
+            console.log(app.redeSocial.repDePostagens);
           }
         }
       }
       //postagens.push(postagem)
-      rede_social.incluirPostagem(postagem);
-      console.log(rede_social.repDePostagens.postagens);
+      //app.redeSocial.repDePostagens.incluir(postagem)
+      //rede_social.incluirPostagem(postagem);
+      //perfil.adicionarPostagem(postagem)
+      //console.log(rede_social.repDePostagens.postagens);
+      app.redeSocial.incluirPostagem(postagem)
+      //console.log(app.redeSocial.repDePostagens);
     }
     //repositorio_postagem.incluir(postagem)
   }
@@ -300,29 +339,30 @@ function consultarPostagens() {
   console.log("CONSULTAR POSTAGEM");
   let id: number = Number(input("ID DA POSTAGEM: "));
   let texto: string = input("TEXTO: ");
-  let hashtag: string = input("HASHTAG: ");
+  //let hashtag: string = input("HASHTAG: ");
 
+  console.log(app.redeSocial.consultarPostagens(id, texto));
+  console.log(app.redeSocial.repDePostagens.consultar(id, texto))
   //if (rede_social instanceof PostagemAvancada)
   //console.log(rede_social.consultarPostagens(id, texto, hashtag, perfil))
-  if (rede_social.repDePostagens instanceof Postagem) {
-    console.log(rede_social.consultarPostagens(id, texto, hashtag, perfil));
-    console.log(typeof id);
-  }
-
-  console.log(rede_social.consultarPostagens(id, texto));
+  /* if (app.redeSocial.repDePostagens instanceof Postagem) {
+    console.log(app.redeSocial.consultarPostagens(id, texto, hashtag));
+    //console.log(app.redeSocial.repDePostagens.consultar(id, texto, hashtag, perfil));
+  } */
 }
 
 function curtirPostagem() {
   let id: number = Number(input("ID DA POSTAGEM: "));
-  rede_social.curtir(id);
+  console.log(app.redeSocial.repDePostagens.consultar(id));
+  app.redeSocial.curtir(id)
   console.log("POSTAGEM CURTIDA");
-  console.log(rede_social.repDePostagens.postagens);
+  console.log(app.redeSocial.repDePostagens.consultar(id));
 }
 
 function descurtirPostagem() {
   let id: number = Number(input("ID DA POSTAGEM: "));
-  rede_social.descurtir(id);
-  console.log(rede_social.repDePostagens.postagens);
+  app.redeSocial.descurtir(id);
+  console.log(app.redeSocial.repDePostagens);
   console.log("POSTAGEM DESCURTIDA");
   //rede_social.descurtir(id)
   //console.log('POSTAGEM DESCURTIDA')
@@ -330,33 +370,37 @@ function descurtirPostagem() {
 
 function decrementarVisualizacoes() {
   console.log("DECREMENTAR VIZUALIZACOES\n");
-  console.log(rede_social.repDePostagens.postagens);
+  console.log(app.redeSocial.repDePostagens);
   let id: number = Number(input("ID DA POSTAGEM: "));
-  if (rede_social.repDePostagens.consultar(id)) {
+  /* if (app.redeSocial.repDePostagens.consultar(id)) {
     rede_social.decrementarVisualizacoes(postagem_avancada);
-  }
-  if (repositorio_postagem.consultar(id)) {
+  } */
+  /* if (repositorio_postagem.consultar(id)) {
     rede_social.decrementarVisualizacoes(postagem_avancada);
+  } */
+  if (app.redeSocial.repDePostagens.consultar(id)) {
+    app.redeSocial.decrementarVisualizacoes(postagem_avancada);
   }
   //postagem_avancada.
   console.log("VIZUALISAÇÃO DECREMENTADA");
-  console.log(rede_social.repDePostagens.postagens);
+  console.log(app.redeSocial.repDePostagens.consultar(id));
 }
 
 function exibirPostagensPorPerfil() {
   console.log("EXIBIR POSTAGENS POR PERFIL");
-  let id: number = Number(input("ID DO PERFIL"));
-  console.log(rede_social.exibirPostagensPorPerfil(id));
+  let id: number = Number(input("ID DO PERFIL: "));
+  console.log(app.redeSocial.exibirPostagensPorPerfil(id));
 }
 
 function exibirPostagensPorHashtag() {
-  console.log("EXIBIR POSTAGENS POR PERFIL");
+  console.log("EXIBIR POSTAGENS POR HASHTAG");
   let hashtag: string = input("HASHTAG: ");
-
-  if (rede_social.repDePostagens.postagens instanceof PostagemAvancada) {
-    rede_social.exibirPostagensPorHashtag(hashtag);
-  }
-  console.log(rede_social.exibirPostagensPorHashtag(hashtag));
+  console.log(app.redeSocial.exibirPostagensPorHashtag(hashtag));
+  /* if (app.redeSocial.repDePostagens.consultar(hashtag) instanceof PostagemAvancada) {
+    //app.redeSocial.exibirPostagensPorHashtag(hashtag);
+    console.log(app.redeSocial.exibirPostagensPorHashtag(hashtag));
+  } */
+  //console.log(rede_social.exibirPostagensPorHashtag(hashtag));
 }
 
 let perfil: Perfil;
@@ -368,15 +412,18 @@ let postagem_avancada: PostagemAvancada;
 
 //let repositorio_perfis = new RepositorioDePerfis()
 //
-let repositorio_postagem = new RepositorioDePostagens();
-let rede_social: RedeSocial = new RedeSocial();
+//let repositorio_postagem = new RepositorioDePostagens();
+let rede_social: RedeSocial;
 
-const app = new App(rede_social);
-app.usarOpcoes();
+//const app = new App(rede_social);
+//app.usarOpcoes();
+const app = new App()
+app.usarOpcoes()
+
 //console.log(app.carregarPerfildeArquivo())
 
 //app.gravarPerfis()
-console.log(app.carregarPostagensdeArquivo());
+//console.log(app.carregarPostagensdeArquivo());
 
 //console.log(rede_social.repDePerfis)
 //console.log(rede_social.repDePostagens)
