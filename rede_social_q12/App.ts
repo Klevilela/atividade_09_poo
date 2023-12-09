@@ -2,7 +2,7 @@ import { RedeSocial } from "./RedeSocial";
 import { Perfil } from "./Perfil";
 import { Postagem } from "./Postagem";
 import { PostagemAvancada } from "./PostagemAvancada";
-import { RepositorioDePerfis } from "./RepositorioDePerfis";
+import { IRepositorioPerfis, RepositorioDePerfis } from "./RepositorioDePerfis";
 import { RepositorioDePostagens } from "./RepositorioDePostagens";
 import * as fs from "fs";
 
@@ -144,6 +144,8 @@ export class App {
   }
 
   usarOpcoes(): void {
+    let opcao_persistencia:string
+    opcao_persistencia = input('DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM\n2-NÃO\n>>')
     let opcao: string;
     
     //app.gravarPerfis()
@@ -195,8 +197,8 @@ export class App {
     while (opcao != SAIR);
     console.log("APLICACAO ENCERRADA");
     
-    let opcao_persistencia:string
-    opcao_persistencia = input('DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM\n2-NÃO\n>>')
+    /* let opcao_persistencia:string
+    opcao_persistencia = input('DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM\n2-NÃO\n>>') */
     if (opcao_persistencia == '1'){
       app.gravarPerfis();
       app.gravarPostagens();
@@ -373,6 +375,7 @@ function exibirPostagensPorHashtag() {
 //variáveis para fazer o acesso ao array de objetos no método de persistência
 let acumulador_perfis:Perfil[] = []
 let acumulador_postagens:Postagem[] = []
+
 
 let perfil: Perfil;
 let postagem: Postagem;
