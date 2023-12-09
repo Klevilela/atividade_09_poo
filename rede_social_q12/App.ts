@@ -17,9 +17,9 @@ const INCLUIR_POSTAGEM: string = "3";
 const CONSULTAR_POSTAGEM: string = "4";
 const CURTIR: string = "5";
 const DESCURTIR: string = "6";
-const DECREMENTAR_VIZUALIZACOES: string = "7";
-const EXIBIR_POSTAGENS_POR_PERFIL: string = "8";
-const EXIBIR_POSTAGENS_POR_HASHTAG: string = "9";
+//const DECREMENTAR_VIZUALIZACOES: string = "7";
+const EXIBIR_POSTAGENS_POR_PERFIL: string = "7";
+const EXIBIR_POSTAGENS_POR_HASHTAG: string = "8";
 const SAIR: string = "0";
 
 export class App {
@@ -95,36 +95,29 @@ export class App {
     return postagens_carregadas;
   }
 
-  /* gravarPerfis() {
+  gravarPerfis() {
     console.log("CADASTRANDO PERFIS");
     let linha_perfil: string = ``;
     let linhas_perfis: string = ``;
-    //let perfis_cadastrados = this.redeSocial.repDePerfis;
-    let perfis_cadastrados = this.redeSocialPerfil.repDePerfis;
-
-    for (let i = 0; i < this.redeSocialPerfil.length; i++) {
-      const element = array[index];
-      
-    }
-
-    for (let perfil of perfis_cadastrados) {
+  
+    for (let perfil of acumulador_perfis) {
       linha_perfil += `${perfil.id};${perfil.nome};${perfil.email}\n`;
-      linhas_perfis += linha_perfil;
+      linhas_perfis += linha_perfil
     }
-    //linhas_perfis = linhas_perfis.slice(0, linhas_perfis.length)
-    fs.writeFileSync("Perfis.txt", linhas_perfis.trim(), { flag: "a" });
+
+    fs.writeFileSync("Perfis.txt", linhas_perfis, { flag: "a" });
   }
 
   gravarPostagens() {
     console.log("POSTAGENS CARREGADAS");
     let linha_postagem: string = ``;
     let linhas_postagens: string = ``;
-    let postagens_carregadas = this.redeSocialPostagem
 
-    for (let post of postagens_carregadas) {
-      linha_postagem += `${post.id};${post.texto};${post.curtidas};${post.descurtidas};${post.date};${post.perfil};\n`;
+    for (let post of acumulador_postagens) {
+      
+      linha_postagem += `${post.id};${post.texto};${post.curtidas};${post.descurtidas};${post.date}\n`;
       linhas_postagens += linha_postagem;
-
+  
       if (post instanceof PostagemAvancada) {
         linha_postagem += `${post.id};${post.texto};${post.curtidas};${post.descurtidas};${post.date};${post.perfil};${post.visualizacoesRestantes};${post.hashtags}\n`; //${post.hashtags}
         linhas_postagens += linha_postagem;
@@ -132,7 +125,7 @@ export class App {
     }
 
     fs.writeFileSync("Postagens.txt", linhas_postagens, { flag: "a" });
-  } */
+  }
 
   exibirMenu(): void {
     let menu = ``;
@@ -143,9 +136,8 @@ export class App {
     menu += `4- CONSULTAR POSTAGEM\n`;
     menu += `5- CURTIR POSTAGEM\n`;
     menu += `6- DESCURTIR POSTAGEM\n`;
-    menu += `7- DECREMENTAR VISUALIZAÇÕES\n`;
-    menu += `8- EXIBIR POSTAGENS POR PERFIL\n`;
-    menu += `9- EXIBIR POSTAGENS POR HASHTAG\n`;
+    menu += `7- EXIBIR POSTAGENS POR PERFIL\n`;
+    menu += `8- EXIBIR POSTAGENS POR HASHTAG\n`;
     menu += `\n0-SAIR`;
 
     console.log(menu);
@@ -153,8 +145,10 @@ export class App {
 
   usarOpcoes(): void {
     let opcao: string;
+    
     //app.gravarPerfis()
     do {
+      //let enter_to_continue: string = input("Aperter <enter> para continuar");
       opcao = input("\nOPÇÃO: ");
       try{
         //console.log(this.carregarPerfildeArquivo())
@@ -181,9 +175,6 @@ export class App {
           case DESCURTIR:
             descurtirPostagem();
             break;
-          case DECREMENTAR_VIZUALIZACOES:
-            decrementarVisualizacoes();
-            break;
           case EXIBIR_POSTAGENS_POR_PERFIL:
             exibirPostagensPorPerfil();
             break;
@@ -193,7 +184,7 @@ export class App {
         }
         
       }
-      catch (e){console.log(e)}
+      catch (e){console.log(e.message)}
       
       /* app.gravarPerfis();
       app.gravarPostagens(); */
@@ -202,35 +193,32 @@ export class App {
       //app.gravarPerfis()
     }
     while (opcao != SAIR);
-    //app.gravarPerfis();
-    //app.gravarPostagens();
     console.log("APLICACAO ENCERRADA");
+    
+    let opcao_persistencia:string
+    opcao_persistencia = input('DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM\n2-NÃO\n>>')
+    if (opcao_persistencia == '1'){
+      app.gravarPerfis();
+      app.gravarPostagens();
+    }
   }
 }
 
-//const nome = input('Nome: ')
 
 function incluirPerfil(): void {
-  //let redeSocial:RedeSocial
   console.log("INCLUIR PERFIL\n");
   let id: number = Number(input("ID: "));
   let nome: string = input("NOME: ");
   let email: string = input("EMAIL: ");
   perfil = new Perfil(id, nome, email);
-
-  /* if (rede_social.repDePerfis instanceof RepositorioDePerfis) {
-    //repositorio_perfis.incluir(perfil)
-    app.redeSocialPerfil.repDePerfis.incluir(perfil)
-  } */
+  
   if (app.redeSocial.repDePerfis instanceof RepositorioDePerfis) {
     app.redeSocial.incluirPerfil(perfil)
-    //repositorio_perfis.incluir(perfil)
-    //app.redeSocial.repDePerfis.incluir(perfil)
+    acumulador_perfis.push(perfil)
   }
 
   console.log("PERFIL INCLUÍDO COM SUCESSO");
   console.log(app.redeSocial.repDePerfis)
-  //console.log(rede_social.repDePerfis);
 }
 
 function consultarPerfil() {
@@ -240,11 +228,9 @@ function consultarPerfil() {
   let email: string = input("EMAIL: ");
 
   if (app.redeSocial.repDePerfis instanceof RepositorioDePerfis) {
-    console.log(app.redeSocial.repDePerfis.consultar(id,nome, email)); 
+    //console.log(app.redeSocial.repDePerfis.consultar(id,nome, email));
+    console.log(app.redeSocial.consultarPerfil(id, nome, email))
   }
-  //console.log(rede_social.consultarPerfil(id, nome, email))
-  //perfil = new Perfil(id, nome, email)
-  //let redeSocial:RedeSocial
 }
 
 function incluirPostagem() {
@@ -256,7 +242,7 @@ function incluirPostagem() {
   let idPerfil: number;
   idPerfil = Number(input("INFORME A ID DO PERIL: "));
   if (app.redeSocial.repDePerfis.consultar(idPerfil)) {
-    console.log(app.redeSocial.repDePerfis.consultar(idPerfil))
+    console.log(app.redeSocial.consultarPerfil(idPerfil))
     if (app.redeSocial.repDePostagens instanceof RepositorioDePostagens) {
       if (tipo_postagem == "1") {
         let id: number = Number(input("ID DA POSTAGEM: "));
@@ -275,8 +261,11 @@ function incluirPostagem() {
         //perfil = app.redeSocialPerfil.repDePerfis.consultar(idPerfil);
 
         postagem = new Postagem(id, texto, curtidas, descurtidas, data, perfil);
+        perfil.postagens.push(postagem)
         app.redeSocial.incluirPostagem(postagem)
         perfil.adicionarPostagem(postagem)
+        acumulador_postagens.push(postagem)
+        
         console.log("POSTAGEM INCLUÍDA COM SUCESSO");
         if (postagem.ehPopular()) {
           console.log("\nA POSTAGEM É POPULAR");
@@ -309,6 +298,8 @@ function incluirPostagem() {
           visualizacoesRestantes,
         );
 
+        app.redeSocial.incluirPostagem(postagem)
+        acumulador_postagens.push(postagem)
         console.log("POSTAGEM INCLUÍDA COM SUCESSO");
       }
       if (tipo_postagem == "3") {
@@ -323,12 +314,7 @@ function incluirPostagem() {
           }
         }
       }
-      //postagens.push(postagem)
-      //app.redeSocial.repDePostagens.incluir(postagem)
-      //rede_social.incluirPostagem(postagem);
-      //perfil.adicionarPostagem(postagem)
-      //console.log(rede_social.repDePostagens.postagens);
-      app.redeSocial.incluirPostagem(postagem)
+      //app.redeSocial.incluirPostagem(postagem)
       //console.log(app.redeSocial.repDePostagens);
     }
     //repositorio_postagem.incluir(postagem)
@@ -339,16 +325,9 @@ function consultarPostagens() {
   console.log("CONSULTAR POSTAGEM");
   let id: number = Number(input("ID DA POSTAGEM: "));
   let texto: string = input("TEXTO: ");
-  //let hashtag: string = input("HASHTAG: ");
 
   console.log(app.redeSocial.consultarPostagens(id, texto));
   console.log(app.redeSocial.repDePostagens.consultar(id, texto))
-  //if (rede_social instanceof PostagemAvancada)
-  //console.log(rede_social.consultarPostagens(id, texto, hashtag, perfil))
-  /* if (app.redeSocial.repDePostagens instanceof Postagem) {
-    console.log(app.redeSocial.consultarPostagens(id, texto, hashtag));
-    //console.log(app.redeSocial.repDePostagens.consultar(id, texto, hashtag, perfil));
-  } */
 }
 
 function curtirPostagem() {
@@ -364,27 +343,20 @@ function descurtirPostagem() {
   app.redeSocial.descurtir(id);
   console.log(app.redeSocial.repDePostagens);
   console.log("POSTAGEM DESCURTIDA");
-  //rede_social.descurtir(id)
-  //console.log('POSTAGEM DESCURTIDA')
 }
 
-function decrementarVisualizacoes() {
+/* function decrementarVisualizacoes() {
   console.log("DECREMENTAR VIZUALIZACOES\n");
   console.log(app.redeSocial.repDePostagens);
   let id: number = Number(input("ID DA POSTAGEM: "));
-  /* if (app.redeSocial.repDePostagens.consultar(id)) {
-    rede_social.decrementarVisualizacoes(postagem_avancada);
-  } */
-  /* if (repositorio_postagem.consultar(id)) {
-    rede_social.decrementarVisualizacoes(postagem_avancada);
-  } */
+  
   if (app.redeSocial.repDePostagens.consultar(id)) {
     app.redeSocial.decrementarVisualizacoes(postagem_avancada);
   }
   //postagem_avancada.
   console.log("VIZUALISAÇÃO DECREMENTADA");
   console.log(app.redeSocial.repDePostagens.consultar(id));
-}
+} */
 
 function exibirPostagensPorPerfil() {
   console.log("EXIBIR POSTAGENS POR PERFIL");
@@ -396,38 +368,15 @@ function exibirPostagensPorHashtag() {
   console.log("EXIBIR POSTAGENS POR HASHTAG");
   let hashtag: string = input("HASHTAG: ");
   console.log(app.redeSocial.exibirPostagensPorHashtag(hashtag));
-  /* if (app.redeSocial.repDePostagens.consultar(hashtag) instanceof PostagemAvancada) {
-    //app.redeSocial.exibirPostagensPorHashtag(hashtag);
-    console.log(app.redeSocial.exibirPostagensPorHashtag(hashtag));
-  } */
-  //console.log(rede_social.exibirPostagensPorHashtag(hashtag));
 }
+
+//variáveis para fazer o acesso ao array de objetos no método de persistência
+let acumulador_perfis:Perfil[] = []
+let acumulador_postagens:Postagem[] = []
 
 let perfil: Perfil;
 let postagem: Postagem;
 let postagem_avancada: PostagemAvancada;
 
-//let perfis:Perfil[] = []
-//let postagens:Postagem[] = []
-
-//let repositorio_perfis = new RepositorioDePerfis()
-//
-//let repositorio_postagem = new RepositorioDePostagens();
-let rede_social: RedeSocial;
-
-//const app = new App(rede_social);
-//app.usarOpcoes();
 const app = new App()
 app.usarOpcoes()
-
-//console.log(app.carregarPerfildeArquivo())
-
-//app.gravarPerfis()
-//console.log(app.carregarPostagensdeArquivo());
-
-//console.log(rede_social.repDePerfis)
-//console.log(rede_social.repDePostagens)
-//perfil = new Perfil(1, 'Joao', 'asd')
-//rede_social.repDePerfis.incluir(perfil)
-//rede_social.incluirPerfil(perfil)
-//console.log(typeof rede_social.repDePerfis)
