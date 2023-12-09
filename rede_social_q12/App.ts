@@ -96,7 +96,7 @@ export class App {
   }
 
   gravarPerfis() {
-    console.log("CADASTRANDO PERFIS");
+    console.log("CADASTRANDO PERFIS...");
     let linha_perfil: string = ``;
     let linhas_perfis: string = ``;
   
@@ -109,7 +109,7 @@ export class App {
   }
 
   gravarPostagens() {
-    console.log("POSTAGENS CARREGADAS");
+    console.log("CADASTRANDO POSTAGENS...");
     let linha_postagem: string = ``;
     let linhas_postagens: string = ``;
 
