@@ -143,20 +143,17 @@ export class App {
     console.log(menu);
   }
 
-  usarOpcoes(): void {
-    let opcao_persistencia:string
-    opcao_persistencia = input('DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM\n2-NÃO\n>>')
-    let opcao: string;
+  usarOpcoes(): void {  
     
-    //app.gravarPerfis()
+  
     do {
-      //let enter_to_continue: string = input("Aperter <enter> para continuar");
-      opcao = input("\nOPÇÃO: ");
       try{
         //console.log(this.carregarPerfildeArquivo())
         //console.log(this.carregarPostagensdeArquivo())
-        this.exibirMenu();
+
         let enter_to_continue: string = input("Aperter <enter> para continuar");
+        this.exibirMenu();
+        opcao = input("\nOPÇÃO: ");
 
         switch (opcao) {
           case INCLUIR_PERFIL:
@@ -187,19 +184,11 @@ export class App {
         
       }
       catch (e){console.log(e.message)}
-      
-      /* app.gravarPerfis();
-      app.gravarPostagens(); */
-      //enter_to_continue = input('\n   Aperte <enter> para continuar')
-      //opcao = input('\nOPÇÃO: ')
-      //app.gravarPerfis()
     }
     while (opcao != SAIR);
     console.log("APLICACAO ENCERRADA");
-    
-    /* let opcao_persistencia:string
-    opcao_persistencia = input('DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM\n2-NÃO\n>>') */
-    if (opcao_persistencia == '1'){
+  
+    if (opcao_persistencia == "1"){
       app.gravarPerfis();
       app.gravarPostagens();
     }
@@ -376,10 +365,13 @@ function exibirPostagensPorHashtag() {
 let acumulador_perfis:Perfil[] = []
 let acumulador_postagens:Postagem[] = []
 
-
+let opcao: string;
 let perfil: Perfil;
 let postagem: Postagem;
 let postagem_avancada: PostagemAvancada;
+let opcao_persistencia:string
 
+console.log("DESEJA GRAVAR OS DADOS NO ARQUIVO ?\n1-SIM \n2-NÃO\n")
+opcao_persistencia = input(">>")
 const app = new App()
 app.usarOpcoes()
