@@ -31,7 +31,7 @@ export class RedeSocial {
     }catch(e){
       console.log(e) 
     }
-    /* let _validando = this._repDePerfis.consultar(
+    let _validando = this._repDePerfis.consultar(
       perfil.id,
       perfil.nome,
       perfil.email
@@ -45,7 +45,7 @@ export class RedeSocial {
       }
     }catch(e){
       console.log(e.message)
-    } */
+    } 
 
   }
 

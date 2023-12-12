@@ -14,19 +14,11 @@ export class RepositorioDePerfis {
   }
 
   consultar(id?: number, nome?: string, email?: string): Perfil {
-    //let achou: boolean = false;
+
 
     let perfilProcurado!: Perfil;
 
     for (let perfil of this.perfis) {
-      //let [id, nome, email] = params;
-      /*if (
-                (!id || perfil.id === id) &&
-                (!nome || perfil.nome === nome) &&
-                (!email || perfil.email === email)
-              ) {
-                perfilProcurado =  perfil;
-              }*/
 
       if (perfil.id == id) {
         perfilProcurado = perfil;
