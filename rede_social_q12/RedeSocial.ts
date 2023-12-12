@@ -30,7 +30,8 @@ export class RedeSocial {
       throw new Error('O perfil com o mesmo id já existe') 
     }catch(e){
       console.log(e) 
-    }
+      
+    } 
      let _validando = this._repDePerfis.consultar(
       perfil.id,
       perfil.nome,
@@ -45,11 +46,11 @@ export class RedeSocial {
       }
     }catch(e){
       console.log(e.message)
-    } 
-
+    }  
   }
 
   consultarPerfil(id?: number, nome?: string, email?: string): Perfil | undefined {
+    
     try{
       if (!this.repDePerfis.consultar(id, nome, email)){
         throw new Error("Perfil não encontrado")
