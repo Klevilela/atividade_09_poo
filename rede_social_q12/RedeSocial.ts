@@ -32,21 +32,6 @@ export class RedeSocial {
       console.log(e) 
       
     } 
-     let _validando = this._repDePerfis.consultar(
-      perfil.id,
-      perfil.nome,
-      perfil.email
-    );
-    try{
-      if (_validando != null) {
-        throw new Error('O perfil já existe')
-        //this._repDePerfis.incluirv2(perfil);
-      }else{
-        this._repDePerfis.incluir(perfil);
-      }
-    }catch(e){
-      console.log(e.message)
-    }  
   }
 
   consultarPerfil(id?: number, nome?: string, email?: string): Perfil | undefined {
