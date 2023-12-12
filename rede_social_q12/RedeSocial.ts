@@ -31,7 +31,7 @@ export class RedeSocial {
     }catch(e){
       console.log(e) 
     }
-    let _validando = this._repDePerfis.consultar(
+     let _validando = this._repDePerfis.consultar(
       perfil.id,
       perfil.nome,
       perfil.email
@@ -58,7 +58,7 @@ export class RedeSocial {
     }catch(e){
       console.log(e.message)
     }
-    /* let perfilProcurado:Perfil
+     let perfilProcurado:Perfil
     try{
       if (!this._repDePerfis.consultar(id, email, nome)){
         throw new Error("Perfil não encontrado")
@@ -66,7 +66,7 @@ export class RedeSocial {
       return this._repDePerfis.consultar(id, email, nome);
     }catch(e){
       console.log(e.message)
-    } */
+    } 
   }
 
   incluirPostagem(postagem: Postagem): void {
@@ -95,10 +95,6 @@ export class RedeSocial {
   }
 
   curtir(idPostagem: number): void {
-    /* let postagemProcurada:Postagem = this.repDePostagens.consultar(idPostagem)
-    if (postagemProcurada){
-      this.curtir(idPostagem)
-    } */
     
     let pesquisa = this.repDePostagens.consultar(idPostagem);
 
@@ -172,44 +168,11 @@ export class RedeSocial {
     }catch(e){
       console.log(e.message);
     }
-
-    /* for (let i = 0; i < postagens.length; i++) {
-      if (postagens[i].id == id) {
-        if (postagens[i] instanceof PostagemAvancada) {
-          avancada = <PostagemAvancada>postagens[i];
-          this.decrementarVisualizacoes(avancada);
-          if (avancada.visualizacoesRestantes > 0) {
-            postagensDoPerfil.push(avancada);
-          }
-        }
-        atual = postagens[i];
-        postagensDoPerfil.push(atual);
-      }
-    } */
-    
   }
 
   exibirPostagensPorHashtag(hashtag: string) {
     let postagens_hashtag = this.repDePostagens.consultar(undefined, undefined, hashtag, undefined)
     let postagensHashtag: PostagemAvancada[] = [];
-    /* let postagens = this._repDePostagens;
-    let avancada: PostagemAvancada;
-    let postaagens:RepositorioDePostagens */
-    
-
-    /* for (let i = 0; i < postagens.length; i++) {
-      if (postagens[i] instanceof PostagemAvancada) {
-        if (postagens[i] instanceof PostagemAvancada) {
-          avancada = <PostagemAvancada>postagens[i];
-          if (avancada.existeHashtag(hashtag)) {
-            this.decrementarVisualizacoes(avancada);
-            if (avancada.visualizacoesRestantes > 0) {
-              postagensHashtag.push(avancada);
-            }
-          }
-        }
-      }
-    } */
 
     for (let postagem of postagens_hashtag) {
       if (postagem instanceof PostagemAvancada) {

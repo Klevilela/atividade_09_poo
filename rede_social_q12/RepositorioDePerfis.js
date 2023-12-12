@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.RepositorioDePerfis = void 0;
 var RepositorioDePerfis = /** @class */ (function () {
     function RepositorioDePerfis() {
@@ -18,18 +18,9 @@ var RepositorioDePerfis = /** @class */ (function () {
         }
     };
     RepositorioDePerfis.prototype.consultar = function (id, nome, email) {
-        //let achou: boolean = false;
         var perfilProcurado;
         for (var _i = 0, _a = this.perfis; _i < _a.length; _i++) {
             var perfil = _a[_i];
-            //let [id, nome, email] = params;
-            /*if (
-                      (!id || perfil.id === id) &&
-                      (!nome || perfil.nome === nome) &&
-                      (!email || perfil.email === email)
-                    ) {
-                      perfilProcurado =  perfil;
-                    }*/
             if (perfil.id == id) {
                 perfilProcurado = perfil;
                 break;

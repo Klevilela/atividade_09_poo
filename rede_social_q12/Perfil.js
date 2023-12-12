@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Perfil = void 0;
 var Perfil = /** @class */ (function () {
     function Perfil(_id, _nome, _email) {

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Postagem = void 0;
 var Postagem = /** @class */ (function () {
     function Postagem(_id, _texto, _curtidas, _descurtidas, _date, _perfil) {
